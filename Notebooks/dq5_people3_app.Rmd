@@ -1,0 +1,56 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+library(tidyverse)
+library(censusapi)
+
+```{r}
+#created a text file with the api key, read in
+key=read_lines('data/key.txt')
+```
+```{r}
+#create dataset for us census apis
+apis <- listCensusApis()
+view(apis)
+```
+```{r}
+#look into metadata for acs1/2019
+metadata <- listCensusMetadata(
+  name = "acs/acs1/profile",
+  vintage = 2019)
+```
+
+
+```{r}
+view(metadata)
+```
+```{r}
+acs1 <- getCensus(
+  key = key,
+  name = "acs/acs1/profile", 
+  vintage = 2019,
+  #pull in variables for race, gender, age, disability, veteran, sexual orientation(if possible)
+  #I will attempt use variables with "percentage" instead of "estimate"
+  vars = c("DP05_0076PE", "DP05_0033PE", "DP05_0025PE", "DP02_0076PE", "DP05_0039PE", "DP05_0038PE", "DP05_0044PE", "DP05_0052PE","DP05_0037PE", "DP05_0035PE", "DP05_0027PE", "DP05_0026PE", "DP02_0070PE", "DP05_0071PE"),
+  #Davidson County
+  region = 'county:037', 
+  #State of TN
+  regionin = 'state:47') #State of TN
+
+
+```
+```{r}
+view(acs1)
+```
+```{r}
+acs1 %>% 
+  rename(total_pop_not_hispanic = DP05_0076PE, total_pop = DP05_0033PE, TN = state, Davidson = county, nat_american_alaskan = DP05_0039PE, asian = DP05_0044PE, black_afr_american = DP05_0038PE, hawaiian_pacific = DP05_0052PE, white = DP05_0037PE, hispanic_or_latino = DP05_0071PE, two_or_more_races = DP05_0035PE, males_18yrs_and_over = DP05_0026PE, females_18yrs_and_over = DP05_0027PE, civilian_vets = DP02_0070PE, disabled_18_to_64 = DP02_0076PE)
+```
+
+```{r}
+view(acs1)
+```
+

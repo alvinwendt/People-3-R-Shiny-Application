@@ -1,0 +1,13 @@
+name: People3_Census_Nashville
+title: People3_Census_Nashville
+username:
+account: alvinwendt
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3418523
+bundleId: 4009495
+url: https://alvinwendt.shinyapps.io/People3_Census_Nashville/
+when: 1608397564.98115
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|Data Input Template.xlsx|Legend.png|upload data test.csv|upload.csv
